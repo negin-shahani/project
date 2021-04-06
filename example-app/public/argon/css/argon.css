@@ -2346,6 +2346,7 @@ pre code
     background-clip: padding-box;
     box-shadow: none;
 }
+
 @media screen and (prefers-reduced-motion: reduce)
 {
     .form-control

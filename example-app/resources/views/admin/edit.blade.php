@@ -125,8 +125,9 @@
                                 <div class="form-group{{ $errors->has('access') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-name">{{ __('Access') }}</label>
                                     <select name="access" id="input-access" class="form-control form-control-alternative{{ $errors->has('access') ? ' is-invalid' : '' }}" placeholder="{{ __('Access') }}" >
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
+                                            <option value="---">---</option>
+                                            <option value="1">doctor</option>
+                                            <option value="2">user</option>
                                         </select>
                                     @if ($errors->has('access'))
                                         <span class="invalid-feedback" role="alert">
@@ -137,9 +138,7 @@
                                 <div class="form-group{{ $errors->has('doctor_id') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-doctor_id">{{ __('Doctor') }}</label>
                                     <select name="doctor_id" id="input-doctor_id" class="form-control form-control-alternative{{ $errors->has('doctor_id') ? ' is-invalid' : '' }}" placeholder="{{ __('Doctor') }}" >
-                                            <option value="---">
-                                               ---
-                                            </option>
+                                            <option value="---">---</option>
                                             @foreach($doctors as $doctor)
                                             <option value="{{$doctor -> id}}">
                                                 {{$doctor -> name}} {{$doctor -> familyname}}

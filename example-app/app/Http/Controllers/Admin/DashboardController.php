@@ -26,12 +26,13 @@ class DashboardController extends Controller
 
      public function update(Request $request , $id){
     	$user= User::find($id);
-    	$user -> access = $request -> access;
+    	
     	if( $request -> doctor_id != "---" ){
-    		$user -> doctor_id = $request -> doctor_id;
-    	}else{
-    		$user -> doctor_id = null;
-    	}
+            $user -> doctor_id = $request -> doctor_id;
+        }
+        if( $request -> access != "---" ){
+            $user -> access = $request -> access;
+        }
     	$user -> save();
     	return redirect(route('admin.dashboard')) -> with('successMsg','The user was updated');
     }
