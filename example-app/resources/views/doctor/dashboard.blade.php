@@ -76,12 +76,7 @@
                     <a class="nav-link" href="{{ route('doctor.report') }}">
                        <i class="ni ni-chat-round text-blue"></i> {{ __('Report') }}
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('icons') }}">
-                        <i class="ni ni-planet text-blue"></i> {{ __('Icons') }}
-                    </a>
-                </li>   
+                </li>  
             </ul>
         </div>
     </div>
@@ -90,7 +85,7 @@
         @endauth
         
         <div class="main-content">
-            @include('layouts.navbars.navbar')
+            @include('doctor.nav')
 
 
 
@@ -165,23 +160,11 @@
             </div>
         </div>
     </div>
-        @include('layouts.footers.auth')
     </div>
-
-
-
-
         </div>
-
-        @guest()
-            @include('layouts.footers.guest')
-        @endguest
-
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
-        <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        
-        @stack('js')
-        
+        <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>     
+        @stack('js')     
         <!-- Argon JS -->
         <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
     </body>

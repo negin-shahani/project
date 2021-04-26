@@ -52,7 +52,9 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
 		Route::get('/editprofile', [dc1::class,'editprofile'])->name('editprofile');
 		Route::get('reports',[dc1::class,'reports'])->name('reports');
 		Route::get('/editreports/{id}', [dc1::class,'editreports'])->name('editreports');
-		Route::delete('/deletereports/{id}', [dc1::class,'deletereports'])->name('deletereports');
+		Route::delete('/deletereports/{id}',[dc1::class,'deletereports'])->name('deletereports');
+		Route::get('/addlevels',[dc1::class,'addlevels'])->name('addlevels');
+		Route::post('/updatelevels', [dc1::class,'updatelevels'])->name('updatelevels');
 });
 Route::group(['as'=>'doctor.','prefix'=>'doctor','namespace'=>'Doctor','middleware'=>['auth','doctor']],
 	function(){
@@ -66,8 +68,15 @@ Route::group(['as'=>'doctor.','prefix'=>'doctor','namespace'=>'Doctor','middlewa
 });
 
 Route::group(['as'=>'normal.','prefix'=>'normal','namespace'=>'Normal','middleware'=>['auth','normal']],
-	function(){Route::get('dashboard',[dc3::class,'index'])->name('dashboard');});
-
+	function(){
+		Route::get('dashboard',[dc3::class,'index'])->name('dashboard');
+		Route::get('/editprofile', [dc3::class,'editprofile'])->name('editprofile');
+		Route::get('/report', [dc3::class,'report'])->name('report');
+		Route::get('/messages', [dc3::class,'messages'])->name('messages');
+		Route::post('/makereport', [dc3::class,'makereport'])->name('makereport');
+		Route::get('/viewnotification/{id}', [dc3::class,'viewnotification'])->name('viewnotification');
+		Route::delete('/deletenotification/{id}',[dc3::class,'deletenotification'])->name('deletenotification');
+});
 
 
 

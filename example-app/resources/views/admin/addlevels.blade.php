@@ -19,6 +19,18 @@
         <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
+        <style type="text/css">
+            
+            input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+        </style>
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
@@ -76,12 +88,12 @@
                     <a class="nav-link" href="{{ route('admin.reports') }}">
                        <i class="ni ni-chat-round text-blue"></i> {{ __('Reports') }}
                     </a>
-                </li>
+                </li> 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.addlevels') }}">
                        <i class="ni ni-album-2 text-blue"></i> {{ __('Add level') }}
                     </a>
-                </li>  
+                </li>
             </ul>
         </div>
     </div>
@@ -102,22 +114,7 @@
         </div>
     </div>
     </div>
-    <div class="row mt-5">
-         
-          
-        </div>
     <div class="container-fluid mt--7">
-        <div class="row">
-
-            <div class="col-xl-4">
-               
-            </div>
-        </div>
-        <div class="row mt-5">
-         
-          
-        </div>
-  <div class="container-fluid mt--7">
         <div class="row">
 
             <div class="col-xl-4">
@@ -135,16 +132,20 @@
                 <div class="card-header border-0">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h3 class="mb-0">Reports</h3>
+                            <h3 class="mb-0">Add a level</h3>
                         </div>
                         
                     </div>
                 </div>
                 
-                <div class="col-12"></div>
+                <div class="col-12">
+                                        
+                </div>
 
-                <div class="table-responsive">
-                     @if (session('successMsg'))
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('admin.updatelevels') }}" autocomplete="off">
+                            @csrf              
+                            @if (session('successMsg'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     {{ session('successMsg') }}
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -152,28 +153,64 @@
                                     </button>
                                 </div>
                             @endif
-                    <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">Full Name</th>
-                                <th scope="col">Text</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                                @foreach($reports as $report)
-                                <tr>
-                                    <td>{{$report -> name}} {{$report -> familyname}}</td>
-                                    <td><?php $x=$report -> text;echo substr($x, 0, 21); ?></td>
-                                    <td>
-                                    <a href="{{route('admin.editreports',$report->id)}}" style="margin-right: 1em;"><i class="ni ni-settings-gear-65"></i></a>
-                                    </td>
-                                </tr>
-                                @endforeach              
-                        </tbody>
-                    </table>
-                    <br>
-                    <div style="margin-left:2em; ">{{$reports->links()}}</div>
+                            <div class="pl-lg-4">
+                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-name">{{ __('Folder name') }}</label>
+                                    <input type="text" name="name" id="name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="" required >
+
+                                    @if (session('nameError'))
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ session('nameError') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('level') ? ' has-danger' : '' }}">
+                                <label class="form-control-label" for="input-name">{{ __('Choose level') }}</label><br>
+                                <input type="radio" name="level" value="1" class="form-control-alternative" style="margin-right:0.1em" checked><label style="margin-right:0.5em">1</label>
+                                <input type="radio" name="level" value="2" class="form-control-alternative" style="margin-right:0.1em"><label style="margin-right:0.5em">2</label>
+                                <input type="radio" name="level" value="3" class="form-control-alternative" style="margin-right:0.1em"><label style="margin-right:0.5em">3</label>
+                                <input type="radio" name="level" value="4" class="form-control-alternative" style="margin-right:0.1em"><label style="margin-right:0.5em">4</label>
+                                <input type="radio" name="level" value="5" class="form-control-alternative" style="margin-right:0.1em"><label >5</label><br>
+                                </div>
+                                <label for="file1" class="custom-file-upload btn btn-primary mt-4"><i class="ni ni-image"></i> 1st picture
+                                </label><input type="file" name="file1" id="file1" ><br>
+                                @if (session('pic1'))
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ session('pic1') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div><br>
+                                    @endif 
+                                <label for="file2" class="custom-file-upload btn btn-primary mt-4"><i class="ni ni-image"></i> 2nd picture
+                                </label><input type="file" name="file2" id="file2" ><br>
+                                @if (session('pic2'))
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ session('pic2') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div><br>
+                                    @endif 
+                                <label for="file3" class="custom-file-upload btn btn-primary mt-4"><i class="ni ni-image"></i> 3rd picture
+                                </label><input type="file" name="file3" id="file3" ><br>
+                                @if (session('pic3'))
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ session('pic3') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div><br>
+                                    @endif 
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
+                                </div>
+                            </div>
+                        </form>
+                    
                 </div>
                 <div class="card-footer py-4">
                     <nav class="d-flex justify-content-end" aria-label="...">
@@ -182,6 +219,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
         </div>
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>

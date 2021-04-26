@@ -76,12 +76,17 @@
                     <a class="nav-link" href="{{ route('admin.reports') }}">
                        <i class="ni ni-chat-round text-blue"></i> {{ __('Reports') }}
                     </a>
+                </li> 
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.addlevels') }}">
+                       <i class="ni ni-album-2 text-blue"></i> {{ __('Add level') }}
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('icons') }}">
                         <i class="ni ni-planet text-blue"></i> {{ __('Icons') }}
                     </a>
-                </li>   
+                </li>
             </ul>
         </div>
     </div>
@@ -90,11 +95,7 @@
         @endauth
         
         <div class="main-content">
-            @include('layouts.navbars.navbar')
-
-
-
-
+            @include('admin.nav')
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
     <div class="container-fluid">
         <div class="header-body">
@@ -180,18 +181,8 @@
             </div>
         </div>
     </div>
-        @include('layouts.footers.auth')
     </div>
-
-
-
-
         </div>
-
-        @guest()
-            @include('layouts.footers.guest')
-        @endguest
-
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         

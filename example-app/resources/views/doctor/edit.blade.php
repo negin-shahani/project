@@ -105,11 +105,6 @@ chart.render();
                     <a class="nav-link" href="{{ route('doctor.report') }}">
                        <i class="ni ni-chat-round text-blue"></i> {{ __('Report') }}
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('icons') }}">
-                        <i class="ni ni-planet text-blue"></i> {{ __('Icons') }}
-                    </a>
                 </li>   
             </ul>
         </div>
@@ -119,7 +114,7 @@ chart.render();
         @endauth
         
         <div class="main-content">
-            @include('layouts.navbars.navbar')
+            @include('doctor.nav')
 @section('content')
     @include('users.partials.header', [
         'title' => '',
@@ -181,7 +176,7 @@ chart.render();
                                             <span class="mr-2">{{$log->score}}%</span>
                                             <div>
                                                 <div class="progress">
-                                                <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="{{$log->score}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$log->score}}%;"></div>
+                                                <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="{{$log->score}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$log->score}}%;"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -192,102 +187,9 @@ chart.render();
                         </table>
                     </div>
                 </div>
-            </div>
-            
+            </div>        
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     <div class="card-body">
                         <form method="POST" action="{{route('doctor.updatelevels',$user->id)}}" autocomplete="off">
                             @csrf                 
@@ -300,8 +202,6 @@ chart.render();
                                 </div>
                             @endif
                             <div class="pl-lg-4">
-
-
                                 <div class="form-group{{ $errors->has('levels') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-levels">{{ __('Start and ending levels') }}</label><br>
                                     <input type="checkbox" name="l1" class="form-control-alternative" value="1" style="margin-right:0.1em"><label style="margin-right:0.5em"> 1</label>
@@ -318,8 +218,6 @@ chart.render();
                                 </div>
                                      @endif
                                 </div>
-
-
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
                                 </div>
@@ -356,20 +254,24 @@ chart.render();
                     </div>
                 </div>
             </div>
-        </div>
-        
-    </div>
-
-
-        
+        </div>       
+    </div>       
+        <script type="text/javascript">
+        const tx = document.getElementsByTagName('textarea');
+        for (let i = 0; i < tx.length; i++) {
+            tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+            tx[i].addEventListener("input", OnInput, false);
+        }
+        function OnInput() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        }
+    </script>
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
-        <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        
-        @stack('js')
-        
+        <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>        
+        @stack('js')      
         <!-- Argon JS -->
         <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
     </body>
 </html>

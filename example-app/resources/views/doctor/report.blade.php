@@ -77,11 +77,7 @@
                        <i class="ni ni-chat-round text-blue"></i> {{ __('Report') }}
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('icons') }}">
-                        <i class="ni ni-planet text-blue"></i> {{ __('Icons') }}
-                    </a>
-                </li>   
+  
             </ul>
         </div>
     </div>
@@ -90,7 +86,7 @@
         @endauth
         
         <div class="main-content">
-            @include('layouts.navbars.navbar')
+            @include('doctor.nav')
 @section('content')
     @include('users.partials.header', [
         'title' => __('Hello') . ' '. auth()->user()->name.' '.auth()->user()->familyname.'!',
@@ -137,13 +133,18 @@
                 </div>
             </div>
         </div>
-        
-        @include('layouts.footers.auth')
     </div>
-        @guest()
-            @include('layouts.footers.guest')
-        @endguest
-
+        <script type="text/javascript">
+        const tx = document.getElementsByTagName('textarea');
+        for (let i = 0; i < tx.length; i++) {
+            tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+            tx[i].addEventListener("input", OnInput, false);
+        }
+        function OnInput() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        }
+    </script>
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         

@@ -63,23 +63,23 @@
             <!-- Navigation -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.dashboard') }}">
+                    <a class="nav-link" href="{{ route('normal.dashboard') }}">
                         <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.editprofile') }}">
+                    <a class="nav-link" href="{{ route('normal.editprofile') }}">
                        <i class="ni ni-single-02 text-blue"></i> {{ __('User profile') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.reports') }}">
-                       <i class="ni ni-chat-round text-blue"></i> {{ __('Reports') }}
+                    <a class="nav-link" href="{{ route('normal.report') }}">
+                       <i class="ni ni-chat-round text-blue"></i> {{ __('Report') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.addlevels') }}">
-                       <i class="ni ni-album-2 text-blue"></i> {{ __('Add level') }}
+                    <a class="nav-link" href="{{ route('normal.messages') }}">
+                       <i class="ni ni-email-83 text-blue"></i> {{ __('Messages') }}
                     </a>
                 </li>  
             </ul>
@@ -90,100 +90,36 @@
         @endauth
         
         <div class="main-content">
-            @include('admin.nav')
-    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
-    <div class="container-fluid">
-        <div class="header-body">
-            <!-- Card stats -->
-            <div class="row">
-                
-               
-            </div>
-        </div>
-    </div>
-    </div>
-    <div class="row mt-5">
-         
-          
-        </div>
-    <div class="container-fluid mt--7">
-        <div class="row">
+            @include('normal.nav')
+@section('content')
+    @include('users.partials.header', [
+        'title' =>'',
+    ])
 
-            <div class="col-xl-4">
-               
-            </div>
-        </div>
-        <div class="row mt-5">
-         
-          
-        </div>
-  <div class="container-fluid mt--7">
-        <div class="row">
-
-            <div class="col-xl-4">
-               
-            </div>
-        </div>
-        <div class="row mt-5">
-         
-          
-        </div>
 <div class="container-fluid mt--7">
-    <div class="row">
-        <div class="col">
-            <div class="card shadow">
-                <div class="card-header border-0">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <h3 class="mb-0">Reports</h3>
+        <div class="row">
+            
+            <div class="col-xl-8 order-xl-1">
+                <div class="card bg-secondary shadow">
+                    <div class="card-header bg-white border-0">
+                        <div class="row align-items-center">
+                            <h3 class="mb-0">Message</h3>
+                            <h3 class="mb-0">
+                                
+                                <form method="POST" id="delete-form-{{$report->id}}" action="{{route('normal.deletenotification',$report->id)}}" style="display: none;"> {{csrf_field()}} {{method_field('delete')}}</form>
+                                    <a onclick="if (confirm('Do you want to proceed?')) {event.preventDefault();document.getElementById('delete-form-{{$report->id}}').submit();}
+                                    else{event.preventDefault(); }" style="cursor: pointer;color:#5e72e4;margin-left: 0.5em;"><i class="fa fa-trash"></i></a>
+                            </h3>
                         </div>
-                        
+                    </div>
+                    <div class="card-body">
+                        {{$report -> text}}
                     </div>
                 </div>
-                
-                <div class="col-12"></div>
-
-                <div class="table-responsive">
-                     @if (session('successMsg'))
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    {{ session('successMsg') }}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            @endif
-                    <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">Full Name</th>
-                                <th scope="col">Text</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                                @foreach($reports as $report)
-                                <tr>
-                                    <td>{{$report -> name}} {{$report -> familyname}}</td>
-                                    <td><?php $x=$report -> text;echo substr($x, 0, 21); ?></td>
-                                    <td>
-                                    <a href="{{route('admin.editreports',$report->id)}}" style="margin-right: 1em;"><i class="ni ni-settings-gear-65"></i></a>
-                                    </td>
-                                </tr>
-                                @endforeach              
-                        </tbody>
-                    </table>
-                    <br>
-                    <div style="margin-left:2em; ">{{$reports->links()}}</div>
-                </div>
-                <div class="card-footer py-4">
-                    <nav class="d-flex justify-content-end" aria-label="...">
-                        
-                    </nav>
-                </div>
             </div>
         </div>
+        
     </div>
-        </div>
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         

@@ -63,25 +63,25 @@
             <!-- Navigation -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.dashboard') }}">
+                    <a class="nav-link" href="{{ route('normal.dashboard') }}">
                         <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.editprofile') }}">
+                    <a class="nav-link" href="{{ route('normal.editprofile') }}">
                        <i class="ni ni-single-02 text-blue"></i> {{ __('User profile') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.reports') }}">
-                       <i class="ni ni-chat-round text-blue"></i> {{ __('Reports') }}
+                    <a class="nav-link" href="{{ route('normal.report') }}">
+                       <i class="ni ni-chat-round text-blue"></i> {{ __('Report') }}
                     </a>
-                </li>   
+                </li> 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.addlevels') }}">
-                       <i class="ni ni-album-2 text-blue"></i> {{ __('Add level') }}
+                    <a class="nav-link" href="{{ route('normal.messages') }}">
+                       <i class="ni ni-email-83 text-blue"></i> {{ __('Messages') }}
                     </a>
-                </li>
+                </li>  
             </ul>
         </div>
     </div>
@@ -90,7 +90,7 @@
         @endauth
         
         <div class="main-content">
-            @include('admin.nav')
+            @include('normal.nav')
 @section('content')
     @include('users.partials.header', [
         'title' => __('Hello') . ' '. auth()->user()->name.' '.auth()->user()->familyname.'!',
